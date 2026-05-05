@@ -100,6 +100,55 @@ func main(){
 
     fmt.Println(car1)
 
+    // anonymus struct
+	MyCar := struct {
+		Name string
+		Brand string	
+	}{
+		Name : "Avanza",
+		Brand : "Toyota",
+	}	
+
+	fmt.Println(MyCar)
+
+	// embedded struct
+
+	type Car struct {
+		Name string
+		Brand string
+	}
+
+	type Employee struct {
+		Name string
+		Age int
+	}
+
+	type CarEmployee struct {
+		Car
+		Employee
+	}
+
+	MyCarEmployee := CarEmployee{
+		Car : Car{
+			Name : "Avanza",
+			Brand : "Toyota",
+		},
+		Employee : Employee{
+			Name : "John Doe",
+			Age : 30,
+		},
+	}
+
+	// the difference between embedded and nested  
+	// embedded struct we can access the fields directly without using the name of the embedded struct, 
+	
+	// nested struct we have to use the name of the nested struct to access the field of the nested struct.
+
+	fmt.Println(MyCarEmployee)	
+
+
+	// interface 
+
 }
 
 
