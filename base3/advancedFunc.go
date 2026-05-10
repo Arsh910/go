@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // Higher order function
 // func agg(a int, b int, add func(int, int) int) int {
 // 	return add(a, b)
@@ -61,8 +59,8 @@ func main() {
 	// fmt.Println(s())
 
 	// anonymus func
-	s := func() int {
-		return 1
-	}
-	fmt.Println(s())
+	// s := func() int {
+	// 	return 1
+	// }
+	// fmt.Println(s())
 }
