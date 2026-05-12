@@ -45,6 +45,18 @@ func fib(ch chan int, n int) {
 	close(ch)
 }
 
+// mutex
+
+var ml sync.Mutex
+var count int
+
+func incre(wg *sync.WaitGroup) {
+	defer wg.Done()
+	ml.Lock()
+	count++
+	ml.Unlock()
+}
+
 func main() {
 	fmt.Println("hello")
 
@@ -153,8 +165,20 @@ func main() {
 	// }()
 	// val := <-readOnly
 	// fmt.Println(val)
-	fmt.Println("hello done")
 
 	// mutexes
 
+	var wg sync.WaitGroup
+
+	wg.Add(1000)
+
+	for i := 0; i < 1000; i++ {
+		go func() {
+			incre(&wg)
+		}()
+	}
+	wg.Wait()
+	fmt.Println(count)
+
+	fmt.Println("hello done")
 }
