@@ -57,6 +57,29 @@ func incre(wg *sync.WaitGroup) {
 	ml.Unlock()
 }
 
+// RW mutex
+
+type SafeMap struct {
+	mt sync.RWMutex
+	mp map[string]int
+}
+
+func (m *SafeMap) readMap(key string) int {
+	m.mt.RLock()
+	defer m.mt.RUnlock()
+	return m.mp[key]
+}
+
+func (m *SafeMap) writeMap(key string, val int) {
+	m.mt.Lock()
+	defer m.mt.Unlock()
+	m.mp[key] = val
+}
+
+func genFunc[T any](k T) T {
+	return k
+}
+
 func main() {
 	fmt.Println("hello")
 
@@ -167,18 +190,35 @@ func main() {
 	// fmt.Println(val)
 
 	// mutexes
+	// var wg sync.WaitGroup
+	// wg.Add(1000)
+	// for i := 0; i < 1000; i++ {
+	// 	go func() {
+	// 		incre(&wg)
+	// 	}()
+	// }
+	// wg.Wait()
+	// fmt.Println(count)
 
-	var wg sync.WaitGroup
+	// RW mutex
+	// mp := SafeMap{
+	// 	mp: make(map[string]int),
+	// }
+	// mp.writeMap("first", 10)
 
-	wg.Add(1000)
+	// var wg sync.WaitGroup
+	// wg.Add(1000)
+	// for i := 0; i < 1000; i++ {
+	// 	go func(n int) {
+	// 		defer wg.Done()
+	// 		mp.writeMap("first", n*10)
+	// 	}(i)
+	// }
+	// wg.Wait()
+	// fmt.Println(mp.readMap("first"))
 
-	for i := 0; i < 1000; i++ {
-		go func() {
-			incre(&wg)
-		}()
-	}
-	wg.Wait()
-	fmt.Println(count)
+	// generics
+	// fmt.Println(genFunc("hello"))
 
 	fmt.Println("hello done")
 }
