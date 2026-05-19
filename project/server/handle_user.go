@@ -33,7 +33,7 @@ func (apic *apiConfig) handleCreateUser(w http.ResponseWriter, r *http.Request) 
 	})
 
 	if err != nil {
-		respondWithError(w, 400, fmt.Sprintf("Errro: %s", err))
+		respondWithError(w, 400, fmt.Sprintf("Error: %s", err))
 		return
 	}
 	respondWithJson(w, 200, databaseUserToUser(user))

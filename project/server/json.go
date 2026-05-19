@@ -7,11 +7,11 @@ import (
 )
 
 func respondWithError(w http.ResponseWriter, code int, msg string) {
-	if code > 488 {
+	if code > 399 {
 		log.Println("Responding error", msg)
 	}
 	type errResponse struct {
-		Error string `josn:"error`
+		Error string `json:"error`
 	}
 	respondWithJson(w, code, errResponse{Error: msg})
 }
@@ -19,7 +19,7 @@ func respondWithError(w http.ResponseWriter, code int, msg string) {
 func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 	data, err := json.Marshal(payload)
 	if err != nil {
-		log.Printf("Failed to marshal JSON reposnse %v", err)
+		log.Printf("Failed to marshal JSON reponse %v", err)
 		w.WriteHeader(500)
 		return
 	}
